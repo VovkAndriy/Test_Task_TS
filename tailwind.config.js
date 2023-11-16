@@ -1,0 +1,41 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+    content: ['./src/**/*.{js,jsx,ts,tsx}'],
+    theme: {
+        extend: {
+            backgroundImage: {
+                hero: "url('../src/assets/images/Effects.png')",
+                creatorCard: "url('../src/assets/icons/CreateAccount/user.svg')",
+            },
+            colors: {
+                'primary-color': ' var(--white-dark-white, #FFF)',
+                'secondary-color': 'var(--gray-gray-200, #F1F1F2)',
+                'thirdy-black': 'gba(255, 255, 255, 0.05)',
+                'forthy-black': 'rgba(255, 255, 255, 0.30)',
+                'border-gray': 'var(--gray-gray-400, #D8D8E5)',
+                'primary-black': '#181C32',
+                'gray-line': '#EFF2F5',
+                'border-color': 'var(--gray-gray-300, #E1E3EA)',
+                'text-gray': '#a1a5b7',
+                'secondary-gray': 'var(--gray-gray-600, #7E8299)',
+                'thirdy-gray': 'var(--gray-gray-100, #F9F9F9)',
+                'forthy-gray': '#5E6278',
+                'primary-blue': '#3E97FF',
+                'secondary-blue': '#006CEA',
+                'hover-blue': 'var(--primary-primary-light, #EEF6FF)',
+                'border-blue': '#2884EF',
+                'primary-green': '#50CD89',
+                'secondary-green': 'var(--success-success-light, #E8FFF3)',
+                'primary-red': '#D9214E',
+                'secondary-red': 'var(--danger-danger-light, #FFF5F8);',
+                'primary-purple': 'var(--info-info, #7239EA)',
+                'secondary-purple': ' var(--info-info-light, #F8F5FF)',
+                'primary-yellow': 'var(--warning-warning, #F6C000)',
+                'secondary-yellow': '#f5c0001a',
+                'primary-red': 'var(--danger-danger, #F1416C)',
+                'secondary-red': '#f1416d1a',
+            },
+        },
+    },
+    plugins: [],
+}
