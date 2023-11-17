@@ -2,7 +2,18 @@
 module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
+        screens: {
+            '2xl': { max: '1680px' },
+            xl: { max: '1370px' },
+            l: { max: '1150px' },
+            lOverflow: { max: '1087px' },
+            m: { max: '850px' },
+            s: { max: '550px' },
+        },
         extend: {
+            fontFamily: {
+                inter: ['inter', 'sans-serif'],
+            },
             backgroundImage: {
                 hero: "url('../src/assets/images/Effects.png')",
                 creatorCard: "url('../src/assets/icons/CreateAccount/user.svg')",
@@ -10,7 +21,7 @@ module.exports = {
             colors: {
                 'primary-color': ' var(--white-dark-white, #FFF)',
                 'secondary-color': 'var(--gray-gray-200, #F1F1F2)',
-                'thirdy-black': 'gba(255, 255, 255, 0.05)',
+                'thirdy-black': 'rgba(255, 255, 255, 0.05)',
                 'forthy-black': 'rgba(255, 255, 255, 0.30)',
                 'border-gray': 'var(--gray-gray-400, #D8D8E5)',
                 'primary-black': '#181C32',

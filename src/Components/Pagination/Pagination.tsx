@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { PagingationItem } from './PagingationItem'
 
 interface IPaginationItem {
@@ -40,33 +40,30 @@ interface IProp {
 }
 
 export const Pagination: React.FC<IProp> = ({ chooseId }) => {
-    const setPage = () => {
-        paginationItem.map(item => {
-            item.isActive = false
-            if (item.id === chooseId) {
-                item.isActive = true
-            }
-        })
-    }
+    const [itemList, setItemList] = useState<IPaginationItem[]>(paginationItem)
     useEffect(() => {
-        setPage()
-    }, [])
+        setItemList(
+            paginationItem.map(item => ({
+                ...item,
+                isActive: item.id === chooseId,
+            }))
+        )
+    }, [chooseId])
 
     return (
         <div>
-            {paginationItem.map(item => {
+            {itemList.map(item => {
                 return (
-                    <PagingationItem
-                        id={item.id}
-                        title={item.title}
-                        description={item.description}
-                        isActive={item.isActive}
-                    />
+                    <div key={item.id} className="flex">
+                        <PagingationItem
+                            id={item.id}
+                            title={item.title}
+                            description={item.description}
+                            isActive={item.isActive}
+                        />
+                    </div>
                 )
             })}
         </div>
     )
-}
-function usseEffect(arg0: () => void, arg1: never[]) {
-    throw new Error('Function not implemented.')
 }

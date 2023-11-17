@@ -3,7 +3,7 @@ import { CreateAccountProgress } from '../../Components/CreateAccountProgress/Cr
 
 export const CreateAccountPage = () => {
     return (
-        <div className="flex w-full h-screen">
+        <div className="flex w-full h-screen m:flex-col">
             <CreateAccountProgress />
             <ChooseAccountType />
         </div>

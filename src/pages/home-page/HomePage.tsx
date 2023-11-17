@@ -50,11 +50,11 @@ const CardItems: ICardItem[] = [
 
 export const HomePage = () => {
     const [status, setStatus] = useState<string>('All')
-    const [dayTime, setDayTime] = useState<string>('Today')
+    const [dayTime, setDayTime] = useState<string>('All Time')
     const [listItems, setListItems] = useState<Item[]>(ItemList)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [totalPages, setTotalPages] = useState(0)
-    const [searchedId, setSearchedId] = useState(0)
+    const [searchedId, setSearchedId] = useState<number>(0)
     const [filteredItems, setFilteredItems] = useState<Item[]>(ItemList)
 
     const itemsPerPage: number = 5
@@ -67,7 +67,7 @@ export const HomePage = () => {
     }
     useEffect(() => {
         setCurrentPage(1)
-    }, [status])
+    }, [status, dayTime, searchedId])
 
     const handleSearch = (query: string) => {
         const filtered = ItemList.filter(item => String(item.id).includes(query))
@@ -79,8 +79,17 @@ export const HomePage = () => {
             <Header />
             <div className="flex">
                 <Navbar />
-                <div className="p-[30px] bg-secondary-color w-full">
-                    <div className="py-[30px] text-text-gray flex justify-around">
+                <div className="p-7 bg-secondary-color w-full">
+                    <div className="flex items-center gap-2 justify-end">
+                        <p className="text-text-gray font-medium">Sort by</p>
+                        <DayTimeDown
+                            setDayTimeAction={setDayTime}
+                            closeStyle="hover:bg-hover-blue hover:text-primary-blue bg-primary-color text-primary-black"
+                            activeStyle=" bg-hover-blue text-primary-blue rounded-md"
+                            notActiveStyle="text-primary-black"
+                        />
+                    </div>
+                    <div className="py-7 text-text-gray lOverflow:overflow-x-auto flex gap-7">
                         {CardItems.map((item, index) => (
                             <CardItem
                                 key={index}
@@ -91,12 +100,17 @@ export const HomePage = () => {
                             />
                         ))}
                     </div>
-                    <div className="bg-primary-color p-[30px] rounded-xl">
-                        <div className="flex pb-[30px] justify-between">
+                    <div className="bg-primary-color p-7 rounded-xl">
+                        <div className="flex pb-7 justify-between s:flex-wrap m:gap-5">
                             <SearchInput onSearch={handleSearch} setSearchedId={setSearchedId} />
-                            <div className="flex items-center gap-[20px]">
+                            <div className="flex items-center gap-5">
                                 <Export />
-                                <DayTimeDown setDayTimeAction={setDayTime} />
+                                <DayTimeDown
+                                    setDayTimeAction={setDayTime}
+                                    closeStyle="hover:bg-hover-blue hover:text-primary-blue bg-thirdy-gray text-text-gray"
+                                    activeStyle=" bg-hover-blue text-primary-blue rounded-md"
+                                    notActiveStyle="text-text-gray"
+                                />
                                 <StatusDropdown setStatusAction={setStatus} />
                             </div>
                         </div>
@@ -106,12 +120,12 @@ export const HomePage = () => {
                             currentItemPerPage={listItems}
                             currentPage={currentPage}
                             setTotalPages={setTotalPages}
+                            allPages={totalPages}
                             setFilteredItems={setFilteredItems}
                             searchedId={searchedId}
                         />
-                        <div className="flex justify-between">
-                            <div className="p-[10px] text-text-gray font-semibold bg-thirdy-gray rounded-md mt-[10px]">
-                                
+                        <div className="flex justify-between s:flex-col-reverse	">
+                            <div className="p-2.5 text-text-gray font-semibold bg-thirdy-gray rounded-md mt-2.5">
                                 Total Result: {filteredItems.length}
                             </div>
                             <PagePagination

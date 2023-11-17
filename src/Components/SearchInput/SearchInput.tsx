@@ -11,29 +11,27 @@ export const SearchInput: React.FC<SearchInputProps> = ({ onSearch, setSearchedI
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value)
+        handleSearch(e.target.value)
     }
 
-    const handleSearch = () => {
-        onSearch(searchValue)
-        setSearchedId(parseInt(searchValue))
+    const handleSearch = (value: string) => {
+        onSearch(value)
+
+        const searchedId = parseInt(value, 10)
+        // @ts-ignore
+        setSearchedId(isNaN(searchedId) ? null : searchedId)
     }
 
     return (
-        <div className="flex items-center gap-2 bg-third-gray rounded-md">
+        <div className="flex items-center gap-2 bg-thirdy-gray rounded-md">
             <img className="p-2" src={userIcon} alt="user" />
             <input
                 value={searchValue}
                 onChange={handleInputChange}
-                className="bg-third-gray outline-none rounded-r-md p-2"
+                className="bg-thirdy-gray outline-none rounded-r-md p-2 max-w-[130px]"
                 type="text"
-                placeholder="Search by ID"
+                placeholder="Search"
             />
-            <button
-                onClick={handleSearch}
-                className="bg-primary-blue text-white px-4 py-2 rounded-md"
-            >
-                Search
-            </button>
         </div>
     )
 }

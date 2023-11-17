@@ -1,6 +1,7 @@
 import ChevronLeftIcon from '@heroicons/react/20/solid/ChevronLeftIcon'
 import ChevronRightIcon from '@heroicons/react/20/solid/ChevronRightIcon'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { PaginationButton } from './PaginationButton'
 
 interface IProps {
     totalPages: number
@@ -9,44 +10,86 @@ interface IProps {
 }
 
 export const PagePagination: React.FC<IProps> = ({ totalPages, handlePageChange, currentPage }) => {
-    const [isCurrentPage, setIsCurrentPage] = useState<number>(1)
+    const [isDisabledLeft, setIsDisabledLeft] = useState<boolean>(currentPage < 2)
+    const [isDisabledRight, setIsDisabledRight] = useState<boolean>(currentPage > totalPages - 1)
+    console.log(currentPage, totalPages, currentPage > totalPages - 1)
+
+    useEffect(() => {
+        setIsDisabledLeft(currentPage < 2)
+        setIsDisabledRight(currentPage > totalPages - 1)
+    }, [currentPage])
+
+    const pressBut = (value: string) => {
+        if (value === 'left' && currentPage > 1) {
+            handlePageChange(currentPage - 1)
+        } else if (value === 'right' && currentPage < totalPages) {
+            handlePageChange(currentPage + 1)
+        }
+    }
+
+    const renderPages = () => {
+        if (totalPages < 5) {
+            return Array.from({ length: totalPages }).map((_, index) => {
+                return (
+                    <div key={index}>
+                        <PaginationButton
+                            handlePageChange={() => handlePageChange(index + 1)}
+                            index={index}
+                            currentPage={currentPage}
+                        />
+                    </div>
+                )
+            })
+        } else {
+            const stepToMove = currentPage + 4 > totalPages ? totalPages : currentPage + 4
+            const indexToMove = totalPages - currentPage - 4 < 0 ? totalPages - 5 : currentPage - 1
+            return Array.from({ length: totalPages })
+                .map((_, index) => index)
+                .slice(indexToMove, stepToMove)
+                .map(el => {
+                    return (
+                        <div key={el}>
+                            <PaginationButton
+                                handlePageChange={() => handlePageChange(el + 1)}
+                                index={el}
+                                currentPage={currentPage}
+                            />
+                        </div>
+                    )
+                })
+        }
+    }
 
     return (
-        <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
-            <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+        <div className="flex items-center justify-between bg-white px-4 py-3 sm:px-6 s:p-0 s:pt-3">
+            <div className="sm:flex sm:flex-1 sm:items-center sm:justify-between">
                 <div>
-                    <nav
-                        className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-                        aria-label="Pagination"
-                    >
-                        <a
-                            href="#"
-                            className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-                            onClick={() => handlePageChange(currentPage - 1)}
+                    {totalPages > 0 && (
+                        <nav
+                            className="isolate inline-flex -space-x-px rounded-md"
+                            aria-label="Pagination"
                         >
-                            <span className="sr-only">Previous</span>
-                            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                        </a>
-                        {Array.from({ length: totalPages }).map((_, index) => (
-                            <a
-                                href="#"
-                                aria-current="page"
-                                className="relative z-10 inline-flex items-center text-gray-400 s px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                key={index}
-                                onClick={() => handlePageChange(index + 1)}
+                            <button
+                                className={`relative inline-flex items-center px-2 py-2 text-gray-400 hover:bg-gray-50 ${
+                                    isDisabledLeft && 'hover:bg-primary-color'
+                                }`}
+                                onClick={() => pressBut('left')}
+                                disabled={isDisabledLeft}
                             >
-                                {index + 1}
-                            </a>
-                        ))}
-                        <a
-                            href="#"
-                            className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-                            onClick={() => handlePageChange(currentPage + 1)}
-                        >
-                            <span className="sr-only">Next</span>
-                            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                        </a>
-                    </nav>
+                                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                            </button>
+                            {renderPages()}
+                            <button
+                                className={`relative inline-flex items-center px-2 py-2 text-gray-400 hover:bg-gray-50 ${
+                                    isDisabledRight && 'hover:bg-primary-color'
+                                }`}
+                                onClick={() => pressBut('right')}
+                                disabled={isDisabledRight}
+                            >
+                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                            </button>
+                        </nav>
+                    )}
                 </div>
             </div>
         </div>

@@ -2,18 +2,34 @@ interface IProps {
     img: string
     title: string
     description: string
+    handleCardSelect: (cardTitle: string) => void
+    isSelected: boolean
 }
 
-export const AccountTypeCard: React.FC<IProps> = ({ img, title, description }) => {
+export const AccountTypeCard: React.FC<IProps> = ({
+    img,
+    title,
+    description,
+    handleCardSelect,
+    isSelected,
+}) => {
+    const changeSelect = () => {
+        handleCardSelect(title)
+    }
+
     return (
-        <div className="group p-[24px] flex items-center gap-[16px] border-border-gray border-[1px] border-dashed rounded-lg hover:border-border-blue hover:bg-hover-blue">
+        <div
+            className={`group p-6 flex items-center gap-4 border-border-gray border border-dashed rounded-lg ${
+                isSelected && 'border-border-blue bg-hover-blue'
+            } cursor-pointer `}
+            onClick={changeSelect}
+        >
             <div>
                 <img src={img} alt={title} />
-                {/* <svg href={img} /> */}
             </div>
             <div className="">
-                <h2>{title}</h2>
-                <p>{description}</p>
+                <h2 className="font-semibold text-base">{title}</h2>
+                <p className="font-medium text-sm text-text-gray ">{description}</p>
             </div>
         </div>
     )

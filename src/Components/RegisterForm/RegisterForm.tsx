@@ -7,46 +7,43 @@ import { LoginCard } from '../LoginCard/LoginCard'
 
 export const RegisterForm = () => {
     return (
-        <div className="w-[100%] flex justify-center items-center">
+        <div className="w-full flex justify-center items-center gap-2">
             <form className="text-text-gray">
-                <div className="flex flex-col gap-[35px]">
+                <div className="flex flex-col gap-9 m:pb-5">
                     <div>
-                        <h1 className="text-primary-black text-[24px] font-semibold text-center pb-[15px]">
+                        <h1 className="text-primary-black text-2xl font-semibold text-center pb-4 m:pb-1 m:pt-3">
                             Account Details
                         </h1>
-                        <p className="text-[14px] font-medium text-center">
-                            Add your personal info
-                        </p>
+                        <p className="text-sm font-medium text-center">Add your personal info</p>
                     </div>
-                    <div className="flex gap-[10px]">
+                    <div className="flex gap-5 s:flex-col s:px-4">
                         <LoginCard img={googleIcon} text="Google" />
                         <LoginCard img={appleleIcon} text="Apple" />
                     </div>
-                    <div className="flex gap-[10px] items-center">
-                        <div className="w-[147px] h-[1px] bg-gray-line" />
+                    <div className="flex gap-2 justify-center items-center">
+                        <div className="w-36 h-px bg-gray-line" />
                         <p>Or with email</p>
-                        <div className="w-[147px] h-[1px] bg-gray-line" />
+                        <div className="w-36 h-px bg-gray-line" />
                     </div>
-                    <div className="flex gap-[20px] flex-col">
-                        <div className="flex gap-[20px]">
-                            <Input placeholder="First Name" />
-                            <Input placeholder="Last Name" />
+                    <div className="flex gap-5 flex-col m:px-4">
+                        <div className="flex gap-5 s:flex-col">
+                            <Input placeholder="First Name" type="text" />
+                            <Input placeholder="Last Name" type="text" />
                         </div>
-                        <Input placeholder="Creator Name" />
+                        <Input placeholder="Creator Name" type="text" />
                         <Input placeholder="Email" type="email" />
-                        <Input placeholder="Phone Number" />
+                        <Input placeholder="Phone Number" type="text" />
                         <Input placeholder="Password" type="password" />
                         <Input placeholder="Confirm Password" type="password" />
-                        <div className="flex gap-[7px] items-center text-forthy-gray font-semibold">
+                        <div className="flex gap-2 items-center text-forthy-gray font-semibold">
                             <CheckboxForm isSelected={false} />
                             <p>
                                 I Accept the
                                 <span className="text-border-blue cursor-pointer"> Terms</span>
                             </p>
                         </div>
-
                         <NavLink
-                            className="py-[12px] px-[16px] bg-primary-blue hover:bg-border-blue rounded-md text-primary-color font-semibold text-[13px] text-center"
+                            className="py-3 px-4 bg-primary-blue hover:bg-border-blue rounded-md text-primary-color font-semibold text-sm text-center"
                             to="/home"
                         >
                             Continue

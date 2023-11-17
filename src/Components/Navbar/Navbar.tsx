@@ -8,17 +8,54 @@ import { default as support, default as whitelist } from '../../assets/icons/Nav
 
 import { NavbarItem } from './NavbarItem'
 
+export interface navListItem {
+    img: string
+    description: string
+}
+
+export const navList = [
+    {
+        img: homeImg,
+        description: 'Home',
+    },
+    {
+        img: filesFolder,
+        description: 'Submit Violations',
+    },
+    {
+        img: whitelist,
+        description: 'Whitelist',
+    },
+    {
+        img: checkList,
+        description: 'Billing',
+    },
+    {
+        img: business,
+        description: 'Affilliate Program',
+    },
+    {
+        img: setting,
+        description: 'Settings',
+    },
+    {
+        img: support,
+        description: 'FAQ',
+    },
+    {
+        img: general,
+        description: 'Support',
+    },
+]
+
 export const Navbar = () => {
     return (
-        <div className="p-[30px] w-[23%] h-full border-r-[1px] border-solid border-border-color">
-            <NavbarItem img={homeImg} description="Home" />
-            <NavbarItem img={filesFolder} description="Submit Violations" />
-            <NavbarItem img={whitelist} description="Whitelist" />
-            <NavbarItem img={checkList} description="Billing" />
-            <NavbarItem img={business} description="Affilliate Program" />
-            <NavbarItem img={setting} description="Settings" />
-            <NavbarItem img={support} description="FAQ" />
-            <NavbarItem img={general} description="Support" />
+        <div className="p-8 w-1/4 h-full border-r border-solid border-border-color min-w-[230px] xl:hidden">
+            {navList.map((item, index) => (
+                <div key={index}>
+                    <NavbarItem img={item.img} description={item.description} />
+                </div>
+            ))}
         </div>
     )
 }

@@ -12,10 +12,13 @@ interface dataDropDown {
 
 const dataTime: dataDropDown[] = [
     {
+        value: 'All Time',
+    },
+    {
         value: 'Today',
     },
     {
-        value: 'Yeasterday',
+        value: 'Yesterday',
     },
     {
         value: 'This Week',
@@ -27,10 +30,18 @@ const dataTime: dataDropDown[] = [
 
 interface IProps {
     setDayTimeAction: React.Dispatch<React.SetStateAction<string>>
+    closeStyle: string
+    activeStyle: string
+    notActiveStyle: string
 }
 
-export const DayTimeDown: React.FC<IProps> = ({ setDayTimeAction }) => {
-    const [time, setTime] = useState<string>('Today')
+export const DayTimeDown: React.FC<IProps> = ({
+    setDayTimeAction,
+    closeStyle,
+    activeStyle,
+    notActiveStyle,
+}) => {
+    const [time, setTime] = useState<string>('All Time')
 
     const changeTimeValue = (value: string): void => {
         setTime(value)
@@ -40,7 +51,9 @@ export const DayTimeDown: React.FC<IProps> = ({ setDayTimeAction }) => {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
-                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+                <Menu.Button
+                    className={`inline-flex w-full justify-center gap-x-1.5 rounded-md  px-3 py-2 text-sm font-semibold  shadow-sm  ${closeStyle}`}
+                >
                     {time}
                     <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-400" aria-hidden="true" />
                 </Menu.Button>
@@ -55,8 +68,8 @@ export const DayTimeDown: React.FC<IProps> = ({ setDayTimeAction }) => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1 m-1.5">
                         {dataTime.map((item, index) => (
                             <div key={index}>
                                 <Menu.Item>
@@ -64,10 +77,8 @@ export const DayTimeDown: React.FC<IProps> = ({ setDayTimeAction }) => {
                                         <a
                                             href="#"
                                             className={classNames(
-                                                active
-                                                    ? 'bg-gray-100 text-gray-900'
-                                                    : 'text-gray-700',
-                                                'block px-4 py-2 text-sm'
+                                                active ? `${activeStyle}` : `${notActiveStyle}`,
+                                                'block px-4 py-2 text-sm font-semibold'
                                             )}
                                             onClick={() => {
                                                 changeTimeValue(item.value)

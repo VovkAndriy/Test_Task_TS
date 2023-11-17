@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 interface IProps {
     id: number
     title: string
@@ -8,30 +6,23 @@ interface IProps {
 }
 
 export const PagingationItem: React.FC<IProps> = ({ id, title, description, isActive }) => {
-    const [isChoose, setIsChoose] = useState<boolean>(isActive)
     return (
-        <div className="flex pb-[45px] items-center gap-[20px]">
-            {isActive ? (
-                <>
-                    <div className="text-primary-color text-[18px] font-semibold p-[8px] w-[46px] h-[46px] bg-primary-green text-center	rounded-lg">
-                        {id}
-                    </div>
-                    <div className=" text-primary-color">
-                        <h2 className="text-[20px] font-semibold">{title}</h2>
-                        <p className="opacity-70 text-[13px] font-medium	">{description}</p>
-                    </div>
-                </>
-            ) : (
-                <>
-                    <div className="text-primary-color text-[18px] font-semibold p-[8px] w-[46px] bg-thirdy-black border-forthy-black h-[46px] text-center border-[1px] border-dashed	rounded-lg">
-                        {id}
-                    </div>
-                    <div className="opacity-70 text-primary-color">
-                        <h2 className="text-[20px] font-semibold">{title}</h2>
-                        <p className="text-[13px] font-medium	">{description}</p>
-                    </div>
-                </>
-            )}
+        <div className="flex pb-11 justify-center gap-5">
+            <div className="flex flex-col items-center">
+                <div
+                    className={`text-primary-color text-lg font-semibold p-2 w-[46px] h-[46px] l:items-center ${
+                        isActive
+                            ? 'bg-primary-green text-center rounded-lg'
+                            : 'bg-thirdy-black border-forthy-black text-center border- border-dashed rounded-lg'
+                    }`}
+                >
+                    {id}
+                </div>
+            </div>
+            <div className={` ${!isActive && 'opacity-70'} text-primary-color`}>
+                <h2 className="text-xl font-semibold">{title}</h2>
+                <p className={`${isActive && 'opacity-70'} text-sm font-medium`}>{description}</p>
+            </div>
         </div>
     )
 }

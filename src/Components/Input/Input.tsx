@@ -1,3 +1,5 @@
+import React from 'react'
+
 interface IProps {
     placeholder: string
     type?: string
@@ -6,7 +8,7 @@ interface IProps {
 export const Input: React.FC<IProps> = ({ placeholder, type }) => {
     return (
         <input
-            className="px-[12px] py-[10px] outline-none border-border-color border-[1px] rounded-md text-primary-black"
+            className="w-full px-4 py-3.5 outline-none border border-border-color rounded-md text-primary-black"
             placeholder={placeholder}
             type={type}
         />
